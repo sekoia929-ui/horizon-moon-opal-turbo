@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "SENTRA",
+      "hasCanvas": false,
+      "bodyTextLen": 2773,
+      "bodyTextHash": "86fc66cff908d2f348206fb3bf06f4a46720c17fbecfbc9a6e2c6a6bca174572",
+      "bodyTextPrefix": "SENTRA SENTIMENT × IMPACT Live crypto voice weighted by reach, p",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "SENTRA",
+      "hasCanvas": false,
+      "bodyTextLen": 2678,
+      "bodyTextHash": "abb282b79f7a67ba7fe83eb79114049acf2d134d1b24a25656d9b920d22cf9b9",
+      "bodyTextPrefix": "SENTRA Live crypto voice weighted by reach, plotted against the ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-preview-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-preview.json"
+}

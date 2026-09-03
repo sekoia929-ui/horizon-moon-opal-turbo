@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Newsreader", ui-serif, Georgia, "Times New Roman", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas,
+    monospace;
+
+  --color-bg: #090a0c;
+  --color-surface: #111318;
+  --color-elevated: #181b21;
+  --color-fg: #e6e8ec;
+  --color-muted: #8d939e;
+  --color-subtle: #5c6370;
+  --color-border: #2a2e36;
+  --color-accent: #9aa7b4;
+  --color-accent-fg: #090a0c;
+  --color-bull: #4a9d7a;
+  --color-bear: #c15c4e;
+  --color-warn: #c4a35a;
+  --color-ring: #9aa7b4;
+
+  --shadow-border: 0 0 0 1px rgba(230, 232, 236, 0.08);
+  --shadow-border-hover: 0 0 0 1px rgba(230, 232, 236, 0.14);
+  --shadow-focus: 0 0 0 1px rgba(154, 167, 180, 0.45);
+
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html,
+  body,
+  #app {
+    min-height: 100%;
+    background: var(--color-bg);
+    color: var(--color-fg);
+  }
+
+  body {
+    font-family: var(--font-sans);
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes sentra-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.72);
+  }
+}
+
+.live-dot {
+  animation: sentra-pulse 1.8s var(--ease-out, cubic-bezier(0.23, 1, 0.32, 1))
+    infinite;
+}
+
+@keyframes sentra-shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+.shimmer {
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklab, var(--color-fg) 8%, transparent) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: sentra-shimmer 1.4s linear infinite;
+}

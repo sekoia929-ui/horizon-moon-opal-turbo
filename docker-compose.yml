@@ -1,0 +1,59 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: sentra
+      POSTGRES_PASSWORD: sentra
+      POSTGRES_DB: sentra
+    ports:
+      - "5432:5432"
+    volumes:
+      - sentra_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sentra"]
+      interval: 5s
+      timeout: 5s
+      retries: 8
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 8
+
+  worker:
+    build: .
+    environment:
+      DATABASE_URL: postgresql://sentra:sentra@postgres:5432/sentra
+      REDIS_URL: redis://redis:6379/0
+      X_BEARER_TOKEN: ${X_BEARER_TOKEN:-}
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN:-}
+      TELEGRAM_CHAT_ID: ${TELEGRAM_CHAT_ID:-}
+      DISCORD_WEBHOOK_URL: ${DISCORD_WEBHOOK_URL:-}
+      SENTRA_DISABLE_FINBERT: "1"
+      WORKER_INTERVAL_SEC: "60"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  dashboard:
+    build: .
+    command: ["streamlit", "run", "dashboard/app.py", "--server.address=0.0.0.0", "--server.port=8501"]
+    environment:
+      DATABASE_URL: postgresql://sentra:sentra@postgres:5432/sentra
+    ports:
+      - "8501:8501"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  sentra_pg:
